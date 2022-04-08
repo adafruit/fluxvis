@@ -3,7 +3,7 @@ import click
 from . import invpolar
 from skimage.transform import downscale_local_mean
 from skimage.io import imsave
-from greaseweazle.image.scp import SCP
+from greaseweazle.tools.util import get_image_class
 
 @click.command()
 @click.option("--slices", default=4000, help="The angular resolution of the flux in 1/revolution (default: 4000)")
@@ -19,9 +19,11 @@ from greaseweazle.image.scp import SCP
 @click.argument("input", type=click.Path(exists=True))
 @click.argument("output", type=click.Path())
 def main(slices, stacks, diameter, tracks, input, output, stride, start, side, resolution, linear, oversample):
-    """Visualize INPUT (an scp-format flux file) to OUTPUT (a png file)
+    """Visualize INPUT (any file readable by greaseweazle, including scp and
+    KryoFlux) to OUTPUT (a png file)
     """
-    flux = SCP.from_file(input)
+    loader = get_image_class(input)
+    flux = loader.from_file(input)
 
     if linear:
         major = round(tracks*stacks)
