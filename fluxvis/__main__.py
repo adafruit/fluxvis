@@ -1,6 +1,7 @@
 import numpy as np
 import click
 from . import invpolar
+from skimage.transform import downscale_local_mean
 from skimage.io import imsave
 from greaseweazle.image.scp import SCP
 
@@ -14,9 +15,10 @@ from greaseweazle.image.scp import SCP
 @click.option("--side", default=0, help="Side of floppy (default: 0)")
 @click.option("--resolution", default=960, help="Resolution of square output image (default: 960)")
 @click.option("--linear/--polar", default=False, help="Use a linear instead of polar image")
+@click.option("--oversample", default=2, help="Increase oversampling of polar transformation")
 @click.argument("input", type=click.Path(exists=True))
 @click.argument("output", type=click.Path())
-def main(slices, stacks, diameter, tracks, input, output, stride, start, side, resolution, linear):
+def main(slices, stacks, diameter, tracks, input, output, stride, start, side, resolution, linear, oversample):
     """Visualize INPUT (an scp-format flux file) to OUTPUT (a png file)
     """
     flux = SCP.from_file(input)
@@ -34,15 +36,11 @@ def main(slices, stacks, diameter, tracks, input, output, stride, start, side, r
         t1 = major - cyl * stacks - 1
         track = flux.get_track(cyl*stride+start, side)
         if track is None: continue
-        print(track.index_list)
         track.cue_at_index()
-        print(track.index_list)
-        print(flux.sample_freq)
         if not track.index_list:
             index = sum(track.list)
         else:
             index = track.index_list[0]
-        print(index / flux.sample_freq)
         index = track.index_list[0]
         indices = np.array(track.list, dtype=np.float32) * (slices/index)
         indices = np.floor(np.add.accumulate(indices))
@@ -51,7 +49,8 @@ def main(slices, stacks, diameter, tracks, input, output, stride, start, side, r
         density[t0:t1, :] = hi - lo
 
     if not linear:
-        density = invpolar.warp_inverse_polar(density, output_shape=(resolution, resolution))
+        density = invpolar.warp_inverse_polar(density, output_shape=(resolution*oversample, resolution*oversample))
+        density = downscale_local_mean(density, (oversample, oversample))
     maxdensity = np.max(density)
     
     imsave(output, (density * (255/maxdensity)).astype(np.uint8))
