@@ -11,7 +11,7 @@ def inverse_polar_mapping(output_coords, k_angle, k_radius, center):
     rr = np.hypot(yy, xx) * k_radius
     return np.column_stack((cc, rr))
 
-def warp_inverse_polar(image, center=None, *, radius=None, output_shape=None, scaling='linear', multichannel=False, **kwargs):
+def warp_inverse_polar(image, center=None, *, radius=None, output_shape=None, multichannel=False, **kwargs):
     if image.ndim != 2 and not multichannel:
         raise ValueError("Input array must be 2 dimensions "
                          "when `multichannel=False`,"
