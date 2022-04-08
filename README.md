@@ -1,3 +1,9 @@
+<!--
+SPDX-FileCopyrightText: 2022 Jeff Epler for Adafruit Industries
+
+SPDX-License-Identifier: CC-BY-4.0
+-->
+
 # Flux Visualize
 
 ![VIsualization of Apple DOS 3.3 floppy as mastered by fluxengine](dos33.png)
