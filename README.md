@@ -3,7 +3,11 @@
 ![VIsualization of Apple DOS 3.3 floppy as mastered by fluxengine](dos33.png)
 
 # Usage
- * Add `.../greaseweazle/scripts` to PYTHONPATH.
+ * Use a virtualenv / venv if desired
+
+ * `pip install -r requirements.txt`
+
+ * Clone/download [greaseweazle](https://github.com/keirf/greaseweazle) and add `.../greaseweazle/scripts` to PYTHONPATH.
 
  * Get your flux in `.scp` format.
 
