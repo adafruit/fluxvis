@@ -55,7 +55,7 @@ def main(
     oversample,
 ):  # pylint: disable=redefined-builtin,too-many-arguments,too-many-locals, invalid-name
     """Visualize INPUT (any file readable by greaseweazle, including scp and
-    KryoFlux) to OUTPUT (a png file)
+    KryoFlux) to OUTPUT (any file supported by skimage including png and jpg)
     """
     loader = get_image_class(input)
     flux = loader.from_file(input)
