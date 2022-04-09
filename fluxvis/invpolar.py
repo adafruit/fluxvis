@@ -64,7 +64,7 @@ def warp_inverse_polar(
     width = input_shape[1]
 
     k_radius = height / radius
-    k_angle = width / (2 * np.pi)
+    k_angle = (width - 1) / (2 * np.pi)
 
     warp_args = {"k_angle": k_angle, "k_radius": k_radius, "center": center}
     warped = warp(

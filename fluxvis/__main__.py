@@ -80,9 +80,9 @@ def main(
         else:
             index = track.index_list[0]
         index = track.index_list[0]
-        indices = np.array(track.list, dtype=np.float32) * (slices / index)
+        indices = np.array(track.list, dtype=np.float32) * ((slices - 1) / index)
         indices = np.floor(np.add.accumulate(indices))
-        lo = (np.searchsorted(indices, r, "left"),)
+        lo = np.searchsorted(indices, r, "left")
         hi = np.searchsorted(indices, r, "right")
         density[t0:t1, :] = hi - lo
 
