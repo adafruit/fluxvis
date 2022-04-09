@@ -6,7 +6,7 @@ SPDX-License-Identifier: CC-BY-4.0
 
 # Flux Visualize
 
-![VIsualization of Apple DOS 3.3 floppy as mastered by fluxengine](dos33.png)
+![Visualization of Commodore 1541 floppy as mastered by fluxengine](etc/disk.jpg)
 
 # Usage
  * Use a virtualenv / venv if desired
