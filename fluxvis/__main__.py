@@ -21,9 +21,10 @@ from . import invpolar
 @click.option("--stacks", default=6, help="The pixel thickness of a track (default: 6)")
 @click.option(
     "--diameter",
-    default=108.0,
-    help="The diameter of the outermost track, in track-widths"
-    '(5.25" disk is approximately 108, 3.5" disk is approximately 210 (default: 108)',
+    default=216.0,
+    help="The diameter of the outermost track, in track-widths."
+    'A 5.25" HD disk is approximately 216, 3.5" HD disk is approximately 420. '
+    "Halve for DD. (default: 216)",
 )
 @click.option("--tracks", default=80, help="The total count of tracks (default: 80)")
 @click.option("--stride", default=1, help="Stride between tracks (default: 1)")

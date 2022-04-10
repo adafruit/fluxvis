@@ -20,9 +20,7 @@ Visualization of a Commodore 1541 floppy as mastered by fluxengine:
 
  * `pip install -r requirements.txt`
 
- * Clone/download [greaseweazle](https://github.com/keirf/greaseweazle) and add `.../greaseweazle/scripts` to PYTHONPATH.
-
- * Get your flux in `.scp` format.
+ * Get your flux in a greaseweazle-compatible format such as `.scp`.
 
  * Use a commandline like
    ```
