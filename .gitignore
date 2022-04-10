@@ -50,3 +50,6 @@ _build
 build
 *.egg-info
 fluxvis/__version__.py
+
+# Built by `python3 -mbuild`
+dist
