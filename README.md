@@ -12,17 +12,15 @@ Visualization of a Commodore 1541 floppy as mastered by fluxengine:
 
 <p align="center"
    
-![Visualization of Commodore 1541 floppy as mastered by fluxengine](etc/disk.jpg)
+![Visualization of Commodore 1541 floppy as mastered by fluxengine](https://github.com/adafruit/fluxvis/raw/main/etc/disk.jpg)
 </p>
 
 # Usage
- * Use a virtualenv / venv if desired
-
- * `pip install -r requirements.txt`
+ * `pip install fluxvis`
 
  * Get your flux in a greaseweazle-compatible format such as `.scp`.
 
  * Use a commandline like
    ```
-   python -mfluxvis --tracks 35 --stride 2 dos33.scp dos33.png
+   python -mfluxvis --tracks 35 --diameter 108 --stride 2 dos33.scp dos33.png
    ```
