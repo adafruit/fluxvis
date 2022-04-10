@@ -1,0 +1,8 @@
+Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
+Upstream-Name: WWVB Observatory
+Upstream-Contact: https://github.com/adafruit/fluxvis/issues
+Source: https://github.com/adafruit/fluxvis
+
+Files: fluxvis/greaseweazle/**
+Copyright: Public Domain
+License: CC0-1.0

@@ -8,7 +8,7 @@ import numpy as np
 import click
 from skimage.transform import downscale_local_mean
 from skimage.io import imsave
-from greaseweazle.tools.util import get_image_class
+from .greaseweazle.tools.util import get_image_class
 from . import invpolar
 
 
