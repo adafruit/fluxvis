@@ -33,9 +33,7 @@ from . import invpolar
 @click.option(
     "--resolution", default=960, help="Resolution of square output image (default: 960)"
 )
-@click.option(
-    "--linear/--polar", default=False, help="Use a linear instead of polar image"
-)
+@click.option("--linear/--polar", default=False, help="Image style (default: polar)")
 @click.option(
     "--oversample", default=2, help="Increase oversampling of polar transformation"
 )
