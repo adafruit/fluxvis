@@ -35,7 +35,7 @@ jobs:
       run: git describe --dirty --always --tags
     - name: install dependencies
       run: |
-        pip install --upgrade setuptools wheel twine readme_renderer testresources pre-commit
+        pip install --upgrade setuptools wheel twine readme_renderer testresources pre-commit build
     - name: Setup problem matchers
       uses: adafruit/circuitpython-action-library-ci-problem-matchers@v1
     - name: Pre-commit hooks
