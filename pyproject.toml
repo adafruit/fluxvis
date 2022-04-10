@@ -1,0 +1,14 @@
+# SPDX-FileCopyrightText: 2022 Jeff Epler for Adafruit Industries
+#
+# SPDX-License-Identifier: MIT
+
+[build-system]
+requires = [
+    "setuptools>=45",
+    "setuptools_scm[toml]>=6.0",
+    "wheel",
+]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools_scm]
+write_to = "fluxvis/__version__.py"

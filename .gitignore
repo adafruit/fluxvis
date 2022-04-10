@@ -45,3 +45,8 @@ _build
 .idea
 .vscode
 *~
+
+# Built by `pip install .`
+build
+*.egg-info
+fluxvis/__version__.py
