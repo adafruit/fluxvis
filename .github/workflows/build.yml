@@ -31,20 +31,6 @@ jobs:
         python3 --version
     - name: Checkout Current Repo
       uses: actions/checkout@v1
-      with:
-        submodules: true
-    - name: Checkout tools repo
-      uses: actions/checkout@v2
-      with:
-        repository: adafruit/actions-ci-circuitpython-libs
-        path: actions-ci
-    - name: Install dependencies
-      # (e.g. - apt-get: gettext, etc; pip: circuitpython-build-tools, requirements.txt; etc.)
-      run: |
-        source actions-ci/install.sh
-    - name: Pip install pylint, Sphinx, pre-commit
-      run: |
-        pip install --force-reinstall pylint Sphinx sphinx-rtd-theme pre-commit
     - name: Library version
       run: git describe --dirty --always --tags
     - name: Setup problem matchers
@@ -52,29 +38,18 @@ jobs:
     - name: Pre-commit hooks
       run: |
         pre-commit run --all-files
-    - name: Build assets
-      run: circuitpython-build-bundles --filename_prefix ${{ steps.repo-name.outputs.repo-name }} --library_location .
-    - name: Archive bundles
-      uses: actions/upload-artifact@v2
-      with:
-        name: bundles
-        path: ${{ github.workspace }}/bundles/
-    - name: Check For docs folder
-      id: need-docs
-      run: |
-        echo ::set-output name=docs::$( find . -wholename './docs' )
-    - name: Build docs
-      if: contains(steps.need-docs.outputs.docs, 'docs')
-      working-directory: docs
-      run: sphinx-build -E -W -b html . _build/html
-    - name: Check For setup.py
-      id: need-pypi
-      run: |
-        echo ::set-output name=setup-py::$( find . -wholename './setup.py' )
     - name: Build Python package
-      if: contains(steps.need-pypi.outputs.setup-py, 'setup.py')
       run: |
         pip install --upgrade setuptools wheel twine readme_renderer testresources
-        python setup.py sdist
-        python setup.py bdist_wheel --universal
+        python -mbuild
         twine check dist/*
+    - uses: actions/upload-artifact@v3
+      with:
+        name: wheel
+        path: |
+          dist/*.whl
+    - uses: actions/upload-artifact@v3
+      with:
+        name: tar
+        path: |
+          dist/*.tar*
