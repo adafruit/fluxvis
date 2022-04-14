@@ -18,7 +18,7 @@ Visualization of a Commodore 1541 floppy as mastered by fluxengine:
 When a fluxengine-style CSV file with decoder information is supplied, the interpretation of each portion of the disk is shown:
 <p align="center"
    
-![Colors show interpretation of disk structure](https://github.com/adafruit/fluxvis/raw/main/etc/disk.jpg)
+![Colors show interpretation of disk structure](https://github.com/adafruit/fluxvis/raw/main/etc/diskcolor.jpg)
 </p>
 
  * Blue: metadata
