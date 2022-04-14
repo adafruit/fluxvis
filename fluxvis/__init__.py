@@ -25,6 +25,11 @@ class A2RTrackShim:
 class A2RFluxShim:
     """Adapt an A2R file to act similar to a GreaseWeazle flux file"""
 
+    @property
+    def sample_freq(self):
+        """The (fixed) sample frequency of an A2R file"""
+        return 8_000_000
+
     def __init__(self, a2r):
         self._a2r = a2r
 
