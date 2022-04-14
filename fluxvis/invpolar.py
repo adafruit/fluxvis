@@ -22,9 +22,9 @@ def _inverse_polar_mapping(
     output_coords, k_angle, k_radius, center
 ):  #  pylint: disable=invalid-name
     """Compute an inverse polar mapping"""
-    xx = output_coords[:, 0] - center[0]
-    yy = output_coords[:, 1] - center[1]
-    cc = (np.pi + np.arctan2(yy, xx)) * k_angle
+    yy = output_coords[:, 0] - center[0]
+    xx = output_coords[:, 1] - center[1]
+    cc = (np.pi + np.arctan2(-yy, xx)) * k_angle
     rr = np.hypot(yy, xx) * k_radius
     return np.column_stack((cc, rr))
 
