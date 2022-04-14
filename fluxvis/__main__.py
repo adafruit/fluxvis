@@ -10,6 +10,8 @@ from skimage.transform import downscale_local_mean
 from skimage.io import imsave
 from .greaseweazle.tools.util import get_image_class
 from . import invpolar
+from . import a2r_to_flux
+from . import a2rchery
 
 
 @click.command()
@@ -56,8 +58,12 @@ def main(
     """Visualize INPUT (any file readable by greaseweazle, including scp and
     KryoFlux) to OUTPUT (any file supported by skimage including png and jpg)
     """
-    loader = get_image_class(input)
-    flux = loader.from_file(input)
+    if input.lower().endswith(".a2r"):
+        a2r = a2rchery.A2RReader(input)
+        flux = a2r_to_flux(a2r)
+    else:
+        loader = get_image_class(input)
+        flux = loader.from_file(input)
 
     if linear:
         major = round(tracks * stacks)

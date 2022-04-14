@@ -18,7 +18,7 @@ Visualization of a Commodore 1541 floppy as mastered by fluxengine:
 # Usage
  * `pip install fluxvis`
 
- * Get your flux in a greaseweazle-compatible format such as `.scp`.
+ * Get your flux in a greaseweazle-compatible format such as `.scp` or in the ".a2r" format.
 
  * Use a commandline like
    ```

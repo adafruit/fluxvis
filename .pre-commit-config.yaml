@@ -7,7 +7,7 @@ repos:
     rev: 22.3.0
     hooks:
     - id: black
-      args: ['--force-exclude', '(.*/)?fluxvis/greaseweazle(/.*)$']
+      args: ['--force-exclude', '^(.*/)?fluxvis/greaseweazle(/.*)$|^(.*/)?a2rchery\.py$']
 -   repo: https://github.com/fsfe/reuse-tool
     rev: v0.12.1
     hooks:
@@ -23,4 +23,4 @@ repos:
     -   id: pylint
         name: pylint (library code)
         types: [python]
-        exclude: "^(docs/|examples/|tests/|fluxvis/greaseweazle/|setup.py$)"
+        exclude: "^(docs/|examples/|tests/|fluxvis/greaseweazle/|setup.py|fluxvis/a2rchery.py$)"
