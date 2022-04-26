@@ -6,10 +6,12 @@
 
 import click
 from skimage.io import imsave
+import matplotlib.pyplot as plt
 from . import open_flux, process
 
 
-@click.command()
+@click.group()
+@click.pass_context
 @click.option(
     "--slices",
     default=4000,
@@ -40,10 +42,8 @@ from . import open_flux, process
     type=click.Path(exists=True),
     help="fluxengine decoder location information saved with --decoder.write_csv_to=",
 )
-@click.argument("input_file", type=click.Path(exists=True))
-@click.argument("output_file", type=click.Path())
 def main(
-    input_file,
+    ctx,
     side,
     tracks,
     start,
@@ -55,26 +55,61 @@ def main(
     resolution,
     linear,
     oversample,
-    output_file,
 ):  # pylint: disable=redefined-builtin,too-many-arguments,too-many-locals, invalid-name, too-many-branches,too-many-statements
-    """Visualize INPUT (any file readable by greaseweazle, including scp and
-    KryoFlux) to OUTPUT (any file supported by skimage including png and jpg)
-    """
-    flux = open_flux(input_file)
-    density = process(
-        flux,
-        side,
-        tracks,
-        start,
-        stride,
-        linear,
-        slices,
-        stacks,
-        location,
-        diameter,
-        resolution,
-        oversample,
+    """Commandline interface to visualize flux"""
+    ctx.ensure_object(dict)
+    ctx.obj.update(
+        {
+            "side": side,
+            "tracks": tracks,
+            "start": start,
+            "stride": stride,
+            "linear": linear,
+            "slices": slices,
+            "stacks": stacks,
+            "location": location,
+            "diameter": diameter,
+            "resolution": resolution,
+            "oversample": oversample,
+        }
     )
+
+
+@main.command()
+@click.pass_context
+@click.argument("input_file", type=click.Path(exists=True))
+def view(ctx, input_file):
+    """Render a flux image to the screen
+
+    INPUT_FILE may be any flux format recognized by the embedded copy of
+    greaseweazle (.scp, etc) or an a2r file."""
+    flux = open_flux(input_file)
+    density = process(flux, **ctx.obj)
+
+    fig, axis = plt.subplots()
+    fig.set_dpi(96)
+    fig.set_size_inches(density.shape[0] / 96, density.shape[1] / 96)
+    fig.set_frameon(False)
+    fig.set_tight_layout(True)
+    plt.axis("off")
+    axis.imshow(density)
+    plt.show()
+
+
+@main.command()
+@click.pass_context
+@click.argument("input_file", type=click.Path(exists=True))
+@click.argument("output_file", type=click.Path())
+def write(ctx, input_file, output_file):
+    """Render a flux image to a file
+
+    INPUT_FILE may be any flux format recognized by the embedded copy of
+    greaseweazle (.scp, etc) or an a2r file.
+
+    OUTPUT_FILE may be any image format recognized by scikit_img including PNG,
+    GIF, and JPG"""
+    flux = open_flux(input_file)
+    density = process(flux, **ctx.obj)
     imsave(output_file, density)
 
 
