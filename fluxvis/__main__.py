@@ -151,6 +151,8 @@ def main(
                     continue
 
                 cyl = (physical_track - start) // stride
+                if cyl not in track_duration:
+                    continue
                 t0 = major - (1 + cyl) * stacks
                 t1 = major - cyl * stacks - 1
 
