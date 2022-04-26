@@ -6,9 +6,8 @@
 
 import numpy as np
 import click
-from skimage.transform import downscale_local_mean
 from skimage.io import imsave
-from . import invpolar, open_flux, render_flux
+from . import open_flux, render_flux, circularize
 
 
 @click.command()
@@ -74,16 +73,8 @@ def main(
     )
 
     if not linear:
-        multichannel = len(density.shape) == 3
-        density = invpolar.warp_inverse_polar(
-            density,
-            output_shape=(resolution * oversample, resolution * oversample),
-            multichannel=multichannel,
-        )
-        if multichannel:
-            density = downscale_local_mean(density, (oversample, oversample, 1))
-        else:
-            density = downscale_local_mean(density, (oversample, oversample))
+        density = circularize(density, resolution, oversample)
+
     maxdensity = np.max(density)
 
     imsave(output_file, (density * (255 / maxdensity)).astype(np.uint8))

@@ -6,9 +6,10 @@
 import csv
 import numpy as np
 from skimage.color import gray2rgb
+from skimage.transform import downscale_local_mean
 from .greaseweazle.tools.util import get_image_class
 from . import a2rchery
-
+from . import invpolar
 
 PHYSICAL_TRACK = "Physical track"
 PHYSICAL_SIDE = "Physical side"
@@ -164,3 +165,16 @@ def render_flux(
 
         density = gray2rgb(density) * status
     return density
+
+
+def circularize(density, resolution, oversample):
+    """Transform a linear density image to circular"""
+    multichannel = len(density.shape) == 3
+    density = invpolar.warp_inverse_polar(
+        density,
+        output_shape=(resolution * oversample, resolution * oversample),
+        multichannel=multichannel,
+    )
+    if multichannel:
+        return downscale_local_mean(density, (oversample, oversample, 1))
+    return downscale_local_mean(density, (oversample, oversample))
