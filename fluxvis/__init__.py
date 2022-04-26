@@ -3,6 +3,9 @@
 # SPDX-License-Identifier: MIT
 """Visualize floppy flux"""
 
+from .greaseweazle.tools.util import get_image_class
+from . import a2rchery
+
 
 class A2RTrackShim:
     """Adapt an A2R file's track to act similar to a GreaseWeazle track"""
@@ -44,3 +47,12 @@ class A2RFluxShim:
 def a2r_to_flux(a2r):
     """Wrap a shim around an A2R file so we can visualize it"""
     return A2RFluxShim(a2r)
+
+
+def open_flux(filename):
+    """Open a flux file by filename"""
+    if filename.lower().endswith(".a2r"):
+        a2r = a2rchery.A2RReader(filename)
+        return a2r_to_flux(a2r)
+    loader = get_image_class(filename)
+    return loader.from_file(filename)

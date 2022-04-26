@@ -10,10 +10,8 @@ import click
 from skimage.transform import downscale_local_mean
 from skimage.io import imsave
 from skimage.color import gray2rgb
-from .greaseweazle.tools.util import get_image_class
 from . import invpolar
-from . import a2r_to_flux
-from . import a2rchery
+from . import open_flux
 
 PHYSICAL_TRACK = "Physical track"
 PHYSICAL_SIDE = "Physical side"
@@ -59,15 +57,15 @@ DATA_BAD_COLOR = np.array((255, 128, 128), dtype=np.uint8)
     type=click.Path(exists=True),
     help="fluxengine decoder location information saved with --decoder.write_csv_to=",
 )
-@click.argument("input", type=click.Path(exists=True))
-@click.argument("output", type=click.Path())
+@click.argument("input_file", type=click.Path(exists=True))
+@click.argument("output_file", type=click.Path())
 def main(
     slices,
     stacks,
     diameter,
     tracks,
-    input,
-    output,
+    input_file,
+    output_file,
     stride,
     start,
     side,
@@ -79,12 +77,8 @@ def main(
     """Visualize INPUT (any file readable by greaseweazle, including scp and
     KryoFlux) to OUTPUT (any file supported by skimage including png and jpg)
     """
-    if input.lower().endswith(".a2r"):
-        a2r = a2rchery.A2RReader(input)
-        flux = a2r_to_flux(a2r)
-    else:
-        loader = get_image_class(input)
-        flux = loader.from_file(input)
+    flux = open_flux(input_file)
+
     if linear:
         major = round(tracks * stacks)
     else:
@@ -188,7 +182,7 @@ def main(
             density = downscale_local_mean(density, (oversample, oversample))
     maxdensity = np.max(density)
 
-    imsave(output, (density * (255 / maxdensity)).astype(np.uint8))
+    imsave(output_file, (density * (255 / maxdensity)).astype(np.uint8))
 
 
 if __name__ == "__main__":
