@@ -4,10 +4,9 @@
 
 """Flux visualizer"""
 
-import numpy as np
 import click
 from skimage.io import imsave
-from . import open_flux, render_flux, circularize
+from . import open_flux, process
 
 
 @click.command()
@@ -44,40 +43,39 @@ from . import open_flux, render_flux, circularize
 @click.argument("input_file", type=click.Path(exists=True))
 @click.argument("output_file", type=click.Path())
 def main(
+    input_file,
+    side,
+    tracks,
+    start,
+    stride,
     slices,
     stacks,
+    location,
     diameter,
-    tracks,
-    input_file,
-    output_file,
-    stride,
-    start,
-    side,
     resolution,
     linear,
     oversample,
-    location,
+    output_file,
 ):  # pylint: disable=redefined-builtin,too-many-arguments,too-many-locals, invalid-name, too-many-branches,too-many-statements
     """Visualize INPUT (any file readable by greaseweazle, including scp and
     KryoFlux) to OUTPUT (any file supported by skimage including png and jpg)
     """
     flux = open_flux(input_file)
-
-    if linear:
-        major = round(tracks * stacks)
-    else:
-        major = round(diameter * stacks / 2)
-
-    density = render_flux(
-        flux, side, tracks, start, stride, major, slices, stacks, location
+    density = process(
+        flux,
+        side,
+        tracks,
+        start,
+        stride,
+        linear,
+        slices,
+        stacks,
+        location,
+        diameter,
+        resolution,
+        oversample,
     )
-
-    if not linear:
-        density = circularize(density, resolution, oversample)
-
-    maxdensity = np.max(density)
-
-    imsave(output_file, (density * (255 / maxdensity)).astype(np.uint8))
+    imsave(output_file, density)
 
 
 if __name__ == "__main__":

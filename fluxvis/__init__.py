@@ -178,3 +178,35 @@ def circularize(density, resolution, oversample):
     if multichannel:
         return downscale_local_mean(density, (oversample, oversample, 1))
     return downscale_local_mean(density, (oversample, oversample))
+
+
+def process(
+    flux,
+    side,
+    tracks,
+    start,
+    stride,
+    linear,
+    slices,
+    stacks,
+    location,
+    diameter,
+    resolution,
+    oversample,
+):  # pylint: disable=too-many-arguments
+    """Process flux into an image"""
+
+    if linear:
+        major = round(tracks * stacks)
+    else:
+        major = round(diameter * stacks / 2)
+
+    density = render_flux(
+        flux, side, tracks, start, stride, major, slices, stacks, location
+    )
+
+    if not linear:
+        density = circularize(density, resolution, oversample)
+
+    maxdensity = np.max(density)
+    return (density * (255 / maxdensity)).astype(np.uint8)
