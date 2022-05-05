@@ -47,6 +47,7 @@ def go(
             suffix=os.path.splitext(filename)[1]
         ) as t:
             shutil.copyfileobj(b, t)
+            t.flush()
             flux = open_flux(t.name)
         density = process(
             flux,
