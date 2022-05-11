@@ -25,7 +25,11 @@ When a fluxengine-style CSV file with decoder information is supplied, the inter
  * Green: successfully decoded data
  * Red: data could not be decoded
 
-# Usage
+# Usage (via google colab)
+ * Visit https://colab.research.google.com/github/adafruit/fluxvis/blob/main/fluxvis.ipynb
+ * Follow the on-screen instructions.
+
+# Usage (local)
  * `pip install fluxvis`
 
  * Get your flux in a greaseweazle-compatible format such as `.scp` or in the ".a2r" format.
