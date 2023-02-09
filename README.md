@@ -47,5 +47,5 @@ When a fluxengine-style CSV file with decoder information is supplied, the inter
 
 Flux reading is done via embedded copies of
 [greaseweazle](https://github.com/keirf/greaseweazle) and
-[a2rchery](https://github.com/a2-2am/a2rchery).  Thanks to @keirf and @a2-4am
+[a2rchery](https://github.com/a2-4am/a2rchery).  Thanks to @keirf and @a2-4am
 for these tools!  See the source code for additional information.
