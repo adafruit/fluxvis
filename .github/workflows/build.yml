@@ -45,12 +45,12 @@ jobs:
       run: |
         python -mbuild
         twine check dist/*
-    - uses: actions/upload-artifact@v3
+    - uses: actions/upload-artifact@v4
       with:
         name: wheel
         path: |
           dist/*.whl
-    - uses: actions/upload-artifact@v3
+    - uses: actions/upload-artifact@v4
       with:
         name: tar
         path: |
