@@ -3,24 +3,23 @@
 # SPDX-License-Identifier: Unlicense
 
 repos:
--   repo: https://github.com/python/black
-    rev: 23.1.0
-    hooks:
-    - id: black
-      args: ['--force-exclude', '^(.*/)?fluxvis/greaseweazle(/.*)$|^(.*/)?a2rchery\.py$']
 -   repo: https://github.com/fsfe/reuse-tool
-    rev: v1.1.0
+    rev: v5.0.2
     hooks:
     - id: reuse
 -   repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v4.4.0
+    rev: v5.0.0
     hooks:
     -   id: check-yaml
     -   id: end-of-file-fixer
--   repo: https://github.com/pycqa/pylint
-    rev: v3.2.7
-    hooks:
-    -   id: pylint
-        name: pylint (library code)
-        types: [python]
-        exclude: "^(docs/|examples/|tests/|fluxvis/greaseweazle/|setup.py|fluxvis/a2rchery.py$)"
+- repo: https://github.com/astral-sh/ruff-pre-commit
+  # Ruff version.
+  rev: v0.6.2
+  hooks:
+    # Run the linter.
+    - id: ruff
+      args: [ --fix ]
+      exclude: "^(docs/|examples/|tests/|fluxvis/greaseweazle/|setup.py|fluxvis/a2rchery.py$)"
+    # Run the formatter.
+    - id: ruff-format
+      exclude: "^(docs/|examples/|tests/|fluxvis/greaseweazle/|setup.py|fluxvis/a2rchery.py$)"

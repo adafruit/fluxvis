@@ -1,0 +1,10 @@
+version = 1
+SPDX-PackageName = "Fluxvis"
+SPDX-PackageSupplier = "https://github.com/adafruit/fluxvis/issues"
+SPDX-PackageDownloadLocation = "https://github.com/adafruit/fluxvis"
+
+[[annotations]]
+path = "fluxvis/greaseweazle/**"
+precedence = "aggregate"
+SPDX-FileCopyrightText = "Public Domain"
+SPDX-License-Identifier = "CC0-1.0"
