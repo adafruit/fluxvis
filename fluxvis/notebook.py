@@ -26,7 +26,7 @@ def go(
     diameter=108,
     resolution=900,
     oversample=2,
-):  # pylint: disable=invalid-name,too-many-arguments
+):
     """Main helper function for operation in a notebook"""
     uploader = FileUpload(accept=".a2r,.scp", multiple=False)
 
@@ -40,7 +40,7 @@ def go(
         finally:
             uploader.metadata.clear()
             uploader.data.clear()
-            uploader._counter = 0  # pylint: disable=protected-access
+            uploader._counter = 0
 
     def process_one_flux(filename, content):
         with io.BytesIO(content) as b, tempfile.NamedTemporaryFile(

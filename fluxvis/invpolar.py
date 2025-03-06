@@ -2,8 +2,6 @@
 #
 # SPDX-License-Identifier: MIT
 
-# pylint: disable=consider-using-f-string
-
 """Compute an inverse polar transform
 
 This can warp an image from linear to polar.
@@ -18,9 +16,7 @@ from skimage import data
 from skimage.transform import warp
 
 
-def _inverse_polar_mapping(
-    output_coords, k_angle, k_radius, center
-):  #  pylint: disable=invalid-name
+def _inverse_polar_mapping(output_coords, k_angle, k_radius, center):
     """Compute an inverse polar mapping"""
     yy = output_coords[:, 0] - center[0]
     xx = output_coords[:, 1] - center[1]
@@ -72,7 +68,7 @@ def warp_inverse_polar(
         _inverse_polar_mapping,
         map_args=warp_args,
         output_shape=output_shape,
-        **kwargs
+        **kwargs,
     )
 
     return warped

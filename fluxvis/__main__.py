@@ -55,7 +55,7 @@ def main(
     resolution,
     linear,
     oversample,
-):  # pylint: disable=redefined-builtin,too-many-arguments,too-many-locals, invalid-name, too-many-branches,too-many-statements
+):
     """Commandline interface to visualize flux"""
     ctx.ensure_object(dict)
     ctx.obj.update(
@@ -114,4 +114,4 @@ def write(ctx, input_file, output_file):
 
 
 if __name__ == "__main__":
-    main()  # pylint: disable=no-value-for-parameter
+    main()

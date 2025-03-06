@@ -75,9 +75,7 @@ def open_flux(filename):
     return loader.from_file(filename)
 
 
-def render_flux(
-    flux, side, tracks, start, stride, major, slices, stacks, location
-):  # pylint: disable=too-many-arguments,invalid-name,too-many-locals,too-many-branches,too-many-statements
+def render_flux(flux, side, tracks, start, stride, major, slices, stacks, location):
     """Render flux to a linear image"""
     density = np.zeros((major, slices), dtype=np.float32)
     r = np.arange(slices)
@@ -193,7 +191,7 @@ def process(
     diameter,
     resolution,
     oversample,
-):  # pylint: disable=too-many-arguments
+):
     """Process flux into an image"""
 
     if linear:
