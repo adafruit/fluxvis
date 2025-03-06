@@ -6,7 +6,7 @@
 # See the file COPYING for more details, or visit <http://unlicense.org>.
 
 from . import error
-from . import codec.amiga.amigados as amigados
+from .codec.amiga import amigados as amigados
 from .img import IMG
 from .image import Image
 
